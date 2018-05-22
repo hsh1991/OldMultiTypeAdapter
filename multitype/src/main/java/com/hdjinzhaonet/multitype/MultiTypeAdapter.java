@@ -20,6 +20,8 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private TypeFactory typeFactory;
     private List<Visitable> models;
 
+    private OnListener onListener;
+
 
     public MultiTypeAdapter(TypeFactory typeFactory) {
         this.typeFactory = typeFactory;
@@ -69,6 +71,13 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return models.get(positon);
     }
 
+    public OnListener getOnListener() {
+        return onListener;
+    }
+
+    public void setOnListener(OnListener onListener) {
+        this.onListener = onListener;
+    }
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -94,6 +103,10 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return typeFactory.type(models.get(position).type());
 //        return typeFactory.type(models.get(position));
 //        return models.get(position).type(typeFactory);
+    }
+
+    public interface OnListener {
+        public void onListener(Visitable v);
     }
 
 
