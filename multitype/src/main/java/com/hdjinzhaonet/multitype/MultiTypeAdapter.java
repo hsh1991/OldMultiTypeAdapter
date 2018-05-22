@@ -11,7 +11,7 @@ import java.util.List;
  * Created by han on 17-9-1.
  * 使用步骤
  * adapter = new MultiTypeAdapter(new TypeFactoryForHome(getContext()));
- *
+ * <p>
  * adapter.addData(datas)
  */
 
@@ -63,6 +63,10 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void remove() {
         models.clear();
         notifyDataSetChanged();
+    }
+
+    public Visitable getDate(int positon) {
+        return models.get(positon);
     }
 
 
