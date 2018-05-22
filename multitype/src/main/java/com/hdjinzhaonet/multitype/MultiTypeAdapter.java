@@ -65,7 +65,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
-    public Visitable getDate(int positon) {
+    public Visitable getData(int positon) {
         return models.get(positon);
     }
 
