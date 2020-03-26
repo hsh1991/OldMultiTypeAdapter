@@ -1,5 +1,6 @@
 package com.hdjinzhaonet.multitype;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -23,9 +24,15 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private OnListener onListener;
 
 
+    private OnBundleChangeListener onBundleChangeListener;
+
+    private Bundle bundle;//存储共享的参数
+
+
     public MultiTypeAdapter(TypeFactory typeFactory) {
         this.typeFactory = typeFactory;
         this.models = new ArrayList<>();
+        bundle = new Bundle();
     }
 
     public void addData(List models) {
@@ -59,6 +66,10 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         notifyDataSetChanged();
     }
 
+    public void refresh() {
+        notifyDataSetChanged();
+    }
+
     /**
      * 清除
      */
@@ -78,6 +89,18 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public void setOnListener(OnListener onListener) {
         this.onListener = onListener;
     }
+
+
+    public void setOnBundleChangeListener(OnBundleChangeListener onBundleChangeListener) {
+        this.onBundleChangeListener = onBundleChangeListener;
+    }
+    //
+    protected void bundleChange() {
+        if (onBundleChangeListener != null) {
+            onBundleChangeListener.onChangeListener();
+        }
+    }
+
 
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -107,6 +130,34 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public interface OnListener {
         public void onListener(Visitable v);
+    }
+
+    public interface OnBundleChangeListener {
+        public void onChangeListener();
+    }
+
+    public void setParam(String key, String v) {
+        bundle.putString(key, v);
+    }
+
+    public void setParam(String key, int v) {
+        bundle.putInt(key, v);
+    }
+
+    public void setParam(String key, boolean v) {
+        bundle.putBoolean(key, v);
+    }
+
+    public String getStringParam(String key, String d) {
+        return bundle.getString(key, d);
+    }
+
+    public boolean getBooleanParam(String key, boolean d) {
+        return bundle.getBoolean(key, d);
+    }
+
+    public int getIntParam(String key, int d) {
+        return bundle.getInt(key, d);
     }
 
 
