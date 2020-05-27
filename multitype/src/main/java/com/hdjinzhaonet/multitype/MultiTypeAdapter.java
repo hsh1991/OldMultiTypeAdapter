@@ -21,9 +21,6 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     private TypeFactory typeFactory;
     private List<Visitable> models;
 
-    private OnListener onListener;
-
-
     private OnBundleChangeListener onBundleChangeListener;
 
     private Bundle bundle;//存储共享的参数
@@ -82,14 +79,6 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return models.get(positon);
     }
 
-    public OnListener getOnListener() {
-        return onListener;
-    }
-
-    public void setOnListener(OnListener onListener) {
-        this.onListener = onListener;
-    }
-
 
     public void setOnBundleChangeListener(OnBundleChangeListener onBundleChangeListener) {
         this.onBundleChangeListener = onBundleChangeListener;
@@ -124,12 +113,6 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
         return typeFactory.type(models.get(position).type());
-//        return typeFactory.type(models.get(position));
-//        return models.get(position).type(typeFactory);
-    }
-
-    public interface OnListener {
-        public void onListener(Visitable v);
     }
 
     public interface OnBundleChangeListener {
@@ -138,14 +121,17 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     public void setParam(String key, String v) {
         bundle.putString(key, v);
+        bundleChange();
     }
 
     public void setParam(String key, int v) {
         bundle.putInt(key, v);
+        bundleChange();
     }
 
     public void setParam(String key, boolean v) {
         bundle.putBoolean(key, v);
+        bundleChange();
     }
 
     public String getStringParam(String key, String d) {
