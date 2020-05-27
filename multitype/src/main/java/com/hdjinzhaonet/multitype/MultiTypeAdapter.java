@@ -84,7 +84,7 @@ public class MultiTypeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.onBundleChangeListener = onBundleChangeListener;
     }
     //
-    protected void bundleChange() {
+    private void bundleChange() {
         if (onBundleChangeListener != null) {
             onBundleChangeListener.onChangeListener();
         }
